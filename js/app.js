@@ -68,6 +68,7 @@ const catView = {
         this.catName = document.getElementById('cat-name');
         this.catCount = document.getElementById('cat-count');
         this.catPicture = document.getElementById('cat-picture');
+        this.dynamic = document.getElementById('dynamic');
         // 加入点击事件，点击增加相应数字
         this.catPicture.onclick = catControl.changClickCount;
 
@@ -79,6 +80,22 @@ const catView = {
         this.catName.textContent = nowCat.name;
         this.catCount.textContent = nowCat.clickCount;
         this.catPicture.setAttribute('src', nowCat.imgSrc);
+        this.dynamic.innerHTML =  `        <div class="modal fade" id="project1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Favorite App Page</h4>
+                    </div>
+                    <div class="modal-body">
+                        <img class="img-fluid img-responsive" src="${nowCat.imgSrc}">
+                        This was my first project in this class. I learned a lot about HTML and CSS.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>`;
     }
 };
 
