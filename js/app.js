@@ -1,63 +1,87 @@
-const model = {
-  cat: [
-      {
-          name: 'Laso',
-          imgSrc: 'img/cat1.jpg',
-          count: 0
-      },
-      {
-          name: 'Rexy',
-          imgSrc: 'img/cat2.jpg',
-          count: 0
-      },
-      {
-          name:'Selina',
-          imgSrc: 'img/cat3.jpg',
-          count: 0
-      },
-      {
-          name: 'Jack',
-          imgSrc: 'img/cat4.jpg',
-          count: 0
-      },
-      {
-          name: 'Alex',
-          imgSrc: 'img/cat5.jpg',
-          count: 0
-      }
-  ]
+const catModel = {
+    cats: [
+        {
+            name: 'Laso',
+            imgSrc: 'img/cat1.jpg',
+            count: 0
+        },
+        {
+            name: 'Rexy',
+            imgSrc: 'img/cat2.jpg',
+            count: 0
+        },
+        {
+            name: 'Selina',
+            imgSrc: 'img/cat3.jpg',
+            count: 0
+        },
+        {
+            name: 'Jack',
+            imgSrc: 'img/cat4.jpg',
+            count: 0
+        },
+        {
+            name: 'Alex',
+            imgSrc: 'img/cat5.jpg',
+            count: 0
+        }
+    ],
+    nowCat: null
 };
 
-const catPicture = document.querySelector('.cat-picture');
-const catName = document.querySelector('.cat-name');
-const count = document.querySelector('.count');
-const catList = document.querySelector(".cat-list");
+const catControl = {
+    init() {
+        catModel.nowCat = catModel.cats[0];
+        catView.init();
+        catListView.init();
 
-
-(function () {
-    catPicture.setAttribute('src', `${model.cat[0].imgSrc}`);
-    catName.textContent = `${model.cat[0].name}`;
-    count.textContent = `${model.cat[0].count}`;
-
-    for (let cat of model.cat) {
-        let li = document.createElement('li');
-        li.textContent = cat.name;
-
-        li.addEventListener('click', function (e) {
-            catPicture.setAttribute('src',cat.imgSrc);
-            catName.textContent = `${cat.name}`;
-            count.textContent = `${cat.count}`;
-            catPicture.onclick = () => {
-              cat.count++;
-              count.textContent = cat.count;
-            };
-        });
-
-
-        catList.appendChild(li);
+    },
+    clickCat(cat) {
+        catModel.nowCat = cat;
+        catView.render();
+    },
+    clickCount() {
+        catModel.nowCat.count++;
+        catView.render();
     }
+};
 
 
-}());
+const catListView = {
+    init() {
+        this.catList = document.querySelector('.cat-list');
+        this.catArray = catModel.cats;
+        this.render();
+    },
+    render() {
+        for (let cat of catModel.cats) {
+            let li = document.createElement('li');
+            li.innerText = `${cat.name}`;
+            li.onclick = () => {catControl.clickCat(cat)};
+            this.catList.appendChild(li);
+        }
+    }
+};
 
 
+const catView = {
+    init() {
+        this.view = document.querySelector('.cat-picture');
+        this.name = document.querySelector('.cat-name');
+        this.click = document.querySelector('.count');
+        this.render();
+
+    },
+    render() {
+        this.view.setAttribute('src', catModel.nowCat.imgSrc);
+        this.name.textContent = `${catModel.nowCat.name}`;
+        this.click.textContent = `${catModel.nowCat.count}`
+        this.view.onclick = catControl.clickCount;
+
+    }
+};
+
+
+
+
+catControl.init();
