@@ -1,87 +1,100 @@
 const catModel = {
-    cats: [
+    currentCat: null,
+    catArray: [
         {
             name: 'Laso',
             imgSrc: 'img/cat1.jpg',
-            count: 0
-        },
-        {
-            name: 'Rexy',
-            imgSrc: 'img/cat2.jpg',
-            count: 0
-        },
-        {
-            name: 'Selina',
-            imgSrc: 'img/cat3.jpg',
-            count: 0
+            clickCount: 0
         },
         {
             name: 'Jack',
-            imgSrc: 'img/cat4.jpg',
-            count: 0
+            imgSrc: 'img/cat2.jpg',
+            clickCount: 0
         },
         {
             name: 'Alex',
+            imgSrc: 'img/cat3.jpg',
+            clickCount: 0
+        },
+        {
+            name: 'Jasmine',
+            imgSrc: 'img/cat4.jpg',
+            clickCount: 0
+        },
+        {
+            name: 'Ming',
             imgSrc: 'img/cat5.jpg',
-            count: 0
+            clickCount: 0
         }
-    ],
-    nowCat: null
+    ]
 };
 
 const catControl = {
     init() {
-        catModel.nowCat = catModel.cats[0];
-        catView.init();
+        catModel.currentCat = catModel.catArray[0];
         catListView.init();
+        catView.init();
+    },
+    getCurrentCat() {
+        return catModel.currentCat;
+    },
+    getCats() {
+        return catModel.catArray;
+    },
+    selectCurrentCat(cat) {
+        catModel.currentCat = cat;
+        catView.render();
+    },
+    changClickCount() {
+        catModel.currentCat.clickCount++;
+        catView.render();
+    }
+};
 
+
+
+const catView =  {
+    init() {
+        this.catName = document.getElementById('cat-name');
+        this.catCount = document.getElementById('cat-count');
+        this.catPicture = document.getElementById('cat-picture');
+
+        this.catPicture.onclick = catControl.changClickCount;
+
+        this.render();
     },
-    clickCat(cat) {
-        catModel.nowCat = cat;
-        catView.render();
-    },
-    clickCount() {
-        catModel.nowCat.count++;
-        catView.render();
+    render() {
+        const nowCat = catControl.getCurrentCat();
+        this.catName.textContent = nowCat.name;
+        this.catCount.textContent = nowCat.clickCount;
+        this.catPicture.setAttribute('src',nowCat.imgSrc);
     }
 };
 
 
 const catListView = {
-    init() {
-        this.catList = document.querySelector('.cat-list');
-        this.catArray = catModel.cats;
-        this.render();
-    },
-    render() {
-        for (let cat of catModel.cats) {
-            let li = document.createElement('li');
-            li.innerText = `${cat.name}`;
-            li.onclick = () => {catControl.clickCat(cat)};
-            this.catList.appendChild(li);
-        }
-    }
+  init() {
+      this.catList = document.getElementById('cat-list');
+      this.render();
+  },
+  render() {
+      const cats = catControl.getCats();
+      for (let cat of cats) {
+          let li = document.createElement('li');
+          li.textContent = cat.name;
+          li.onclick = () => catControl.selectCurrentCat(cat);
+          this.catList.appendChild(li);
+      }
+  }
 };
 
-
-const catView = {
-    init() {
-        this.view = document.querySelector('.cat-picture');
-        this.name = document.querySelector('.cat-name');
-        this.click = document.querySelector('.count');
-        this.render();
-
-    },
-    render() {
-        this.view.setAttribute('src', catModel.nowCat.imgSrc);
-        this.name.textContent = `${catModel.nowCat.name}`;
-        this.click.textContent = `${catModel.nowCat.count}`
-        this.view.onclick = catControl.clickCount;
-
-    }
-};
 
 
 
 
 catControl.init();
+
+
+
+
+
