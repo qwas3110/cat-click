@@ -96,7 +96,7 @@ const catListView = {
         const cats = catControl.getCats();
         for (let cat of cats) {
             let li = document.createElement('li');
-            li.textContent = cat.name;
+            li.innerHTML = `<a href="#"><img class="img-responsive img-circle" id="cat-icon" src="${cat.imgSrc}"/></a>`;
             // 加入点击事情，指定当前点击的对象
             li.onclick = () => catControl.selectCurrentCat(cat);
             this.catList.appendChild(li);

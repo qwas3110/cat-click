@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css">
@@ -10,13 +10,14 @@
 </head>
 <body>
     <div class="container">
-        <div id="cat">
-            <h1 id="cat-name"></h1>
-            <p>点击数:<span id="cat-count"></span></p>
-            <img id="cat-picture" src="" alt="cat picture">
+        <div id="cat" class="row text-center">
+            <h1 class="col-sm-12" id="cat-name"></h1>
+            <h5 class="col-sm-12">点击数:<span id="cat-count"></span></h5>
+            <img id="cat-picture" class="col-sm-12 img-responsive center-block" src="" alt="cat picture">
         </div>
-        <div>
-            <ul id="cat-list"></ul>
+
+        <div class="row">
+            <ul class="col-xs-12 list-inline text-center" id="cat-list"></ul>
         </div>
     </div>
 
