@@ -80,7 +80,7 @@ const catView = {
         this.catName.textContent = nowCat.name;
         this.catCount.textContent = nowCat.clickCount;
         this.catPicture.setAttribute('src', nowCat.imgSrc);
-        this.dynamic.innerHTML =  `        <div class="modal fade" id="project1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        this.dynamic.innerHTML =  `        <div class="modal fade" id="project" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
