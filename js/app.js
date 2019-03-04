@@ -37,8 +37,9 @@ const catControl = {
     // 初始化
     init() {
         catModel.currentCat = catModel.catArray[0];
-        catListView.init();
         catView.init();
+        catListView.init();
+        catAdminView.init();
     },
     // 获取当前点击对象
     getCurrentCat() {
@@ -52,11 +53,13 @@ const catControl = {
     selectCurrentCat(cat) {
         catModel.currentCat = cat;
         catView.render();
+        catAdminView.render();
     },
     // 增减点击数字
     changClickCount() {
         catModel.currentCat.clickCount++;
         catView.render();
+        catAdminView.render();
     }
 };
 
@@ -111,6 +114,8 @@ const catListView = {
     render() {
         // 遍历猫数组，创建列表
         const cats = catControl.getCats();
+
+        this.catList.innerHTML = '';
         for (let cat of cats) {
             let li = document.createElement('li');
             li.innerHTML = `<a href="#"><img class="img-responsive img-circle" id="cat-icon" src="${cat.imgSrc}"/></a>`;
@@ -120,6 +125,39 @@ const catListView = {
         }
     }
 };
+
+
+const catAdminView = {
+    init() {
+        this.adminView = document.getElementById('admin-view');
+        this.adminName = document.getElementById('admin-name');
+        this.adminURL = document.getElementById('admin-url');
+        this.adminCount = document.getElementById('admin-count');
+
+        this.render();
+
+        this.adminView.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('admin-name'),
+                url = document.getElementById('admin-url'),
+                count = document.getElementById('admin-count');
+            const currentCat = catControl.getCurrentCat();
+            currentCat.name = name.value;
+            currentCat.imgSrc = url.value;
+            currentCat.clickCount = count.value;
+            catListView.render();
+            catView.render();
+
+        });
+    },
+    render() {
+        const currentCat = catControl.getCurrentCat();
+        this.adminName.value = currentCat.name;
+        this.adminURL.value = currentCat.imgSrc;
+        this.adminCount.value = currentCat.clickCount;
+    }
+};
+
 
 
 // 运行

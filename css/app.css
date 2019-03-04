@@ -17,4 +17,21 @@
 }
 
 
+.admin {
+    max-width: 300px;
 
+}
+
+.admin-view {
+    padding-top: 10px;
+}
+
+
+
+#toggle-label {
+
+}
+
+#toggle-checkbox:checked ~ form {
+    display: block !important;
+}
